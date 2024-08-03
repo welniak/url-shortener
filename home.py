@@ -36,3 +36,4 @@ logger.addHandler(console_handler)
 def log_request_info():
     logger.info('Headers: %s', request.headers)
     logger.info('Body: %s', request.get_data())
+    
