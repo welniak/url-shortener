@@ -1,6 +1,7 @@
 from flask import request
 from app import app
 from app.logger import logger
+from app.url_validator import is_valid_url
 
 @app.before_request
 def log_request_info():
@@ -15,5 +16,7 @@ def shorten_url():
     print(url)
     if url is None:
         return 'No URL provided', 400
+    elif not is_valid_url(url):
+        return 'The provided URL is not valid. Please provide a URL in the format: http://www.example.com', 400
     else:
         return '', 200
