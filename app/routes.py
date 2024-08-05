@@ -17,6 +17,6 @@ def shorten_url():
     if url is None:
         return 'No URL provided', 400
     elif not is_valid_url(url):
-        return 'The provided URL is not valid', 400
+        return 'The provided URL is not valid. Please provide a URL in the format: http://www.example.com', 400
     else:
         return '', 200
