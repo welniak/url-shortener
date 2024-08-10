@@ -19,5 +19,5 @@ def shorten_url():
     elif not is_valid_url(url):
         return 'The provided URL is not valid. Please provide a URL in the format: http://www.example.com', 400
     else:
-        hash = create_hash_from(url)
-        return 'Hash: ' + hash, 200
+        url_hash = create_hash_from(url)
+        return 'Hash: ' + url_hash, 200

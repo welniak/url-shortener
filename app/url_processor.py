@@ -4,7 +4,7 @@ import hashlib
 def create_hash_from(url) -> str:
     return _custom_length_hash(input_string=url, length=8)
 
-def _custom_length_hash(input_string, length=16):
+def _custom_length_hash(input_string, length=16) -> str:
     # Create a SHA-256 hash object
     sha256 = hashlib.sha256()
     
