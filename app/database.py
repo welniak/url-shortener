@@ -8,11 +8,4 @@ redis_client = redis.Redis(
 )
 
 def store_url(url: str, hash: str):
-    response = redis_client.set(name=hash, value=url)
-    if response:
-        print('stored')
-    else:
-        print('not stored')
-
-def get_url(hash: str):
-    redis_client.get(hash)
+    redis_client.set(name=hash, value=url)
