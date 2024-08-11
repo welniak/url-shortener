@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, jsonify
 from app import app
 from app.logger import logger
 from app.url_validator import is_valid_url
@@ -9,10 +9,13 @@ def log_request_info():
     logger.info('Headers: %s', request.headers)
     logger.info('Body: %s', request.get_data())
 
-@app.route('/', methods=['POST'])
+@app.route('/shorten_url', methods=['POST'])
 def shorten_url():
+    '''
+    The expected request format: {"url": "https://www.google.com/long/path?with=query"}
+    Responds with: {"short_url": "https://domain.com/3P4ykvA9"}
+    '''
     content = request.json
-    # Extract the url from the request
     url = content.get('url')
     if url is None:
         return 'No URL provided', 400
@@ -20,4 +23,7 @@ def shorten_url():
         return 'The provided URL is not valid. Please provide a URL in the format: http://www.example.com', 400
     else:
         url_hash = create_and_store_hash(url)
-        return 'Hash: ' + url_hash, 200
+        response_body = {
+            "short_url": request.host_url + url_hash
+        }
+        return jsonify(response_body), 200
