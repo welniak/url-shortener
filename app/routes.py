@@ -18,12 +18,18 @@ def shorten_url():
     content = request.json
     url = content.get('url')
     if url is None:
-        return 'No URL provided', 400
+        return _error_response('No URL provided', 400)
     elif not is_valid_url(url):
-        return 'The provided URL is not valid. Please provide a URL in the format: http://www.example.com', 400
+        return _error_response("The provided URL is not valid. Please provide a URL in the format: http://www.example.com", 400)
     else:
         url_hash = create_and_store_hash(url)
         response_body = {
-            "short_url": request.host_url + url_hash
+            "short_url": f"{request.host_url}{url_hash}"
         }
         return jsonify(response_body), 200
+    
+def _error_response(errorMessage: str, errorCode: int):
+    response_body = {
+        "error_message": errorMessage
+    }
+    return jsonify(response_body), errorCode
