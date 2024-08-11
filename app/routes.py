@@ -28,8 +28,8 @@ def shorten_url():
         }
         return jsonify(response_body), 200
     
-def _error_response(errorMessage: str, errorCode: int):
+def _error_response(error_message: str, error_code: int):
     response_body = {
-        "error_message": errorMessage
+        "error_message": error_message
     }
-    return jsonify(response_body), errorCode
+    return jsonify(response_body), error_code
