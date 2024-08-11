@@ -1,10 +1,13 @@
 import base64
 import hashlib
+import app.database as db
 
-def create_hash_from(url) -> str:
-    return _custom_length_hash(input_string=url, length=8)
+def create_and_store_hash(url: str) -> str:
+    url_hash = _create_hash_from(input_string=url)
+    db.store_url(url=url, hash=url_hash)
+    return url_hash
 
-def _custom_length_hash(input_string, length=16) -> str:
+def _create_hash_from(input_string: str, length: int=8) -> str:
     # Create a SHA-256 hash object
     sha256 = hashlib.sha256()
     
