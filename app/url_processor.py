@@ -2,7 +2,7 @@ import base64
 import hashlib
 import app.database as db
 
-def process_url(url: str) -> str:
+def create_and_store_hash(url: str) -> str:
     url_hash = _create_hash_from(input_string=url)
     db.store_url(url=url, hash=url_hash)
     return url_hash
