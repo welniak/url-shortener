@@ -1,8 +1,8 @@
-from flask import request, jsonify
+from flask import request, jsonify, redirect
 from app import app
 from app.logger import logger
 from app.url_validator import is_valid_url
-from app.url_processor import create_and_store_hash
+from app.url_processor import create_and_store_hash, get_url_for_hash
 
 @app.before_request
 def log_request_info():
@@ -27,6 +27,14 @@ def shorten_url():
             "short_url": f"{request.host_url}{url_hash}"
         }
         return jsonify(response_body), 200
+    
+@app.route('/<url_hash>', methods=['GET'])
+def open_url_for_hash(url_hash):
+    url = get_url_for_hash(url_hash)
+    if (url is None):
+        return _error_response("URL not found", 404)
+    else:
+        return redirect(url)
     
 def _error_response(error_message: str, error_code: int):
     response_body = {
