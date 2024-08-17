@@ -12,5 +12,5 @@ redis_client = redis.Redis(
 def store_url(url: str, hash: str):
     redis_client.set(name=hash, value=url)
 
-def read_url(hash: str) -> Union[str, None]:
-    return redis_client.get(hash)
+def get_url_by_hash(url_hash: str) -> Union[str, None]:
+    return redis_client.get(url_hash)

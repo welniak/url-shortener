@@ -8,8 +8,8 @@ def create_and_store_hash(url: str) -> str:
     db.store_url(url=url, hash=url_hash)
     return url_hash
 
-def get_url_for_hash(hash: str) -> Union[str, None]:
-    return db.read_url(hash)
+def get_url_for_hash(url_hash: str) -> Union[str, None]:
+    return db.get_url_by_hash(url_hash)
 
 def _create_hash_from(input_string: str, length: int=8) -> str:
     # Create a SHA-256 hash object
