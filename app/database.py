@@ -10,7 +10,9 @@ redis_client = redis.Redis(
 )
 
 def store_url(url: str, hash: str):
-    redis_client.set(name=hash, value=url)
+    # 24h
+    expiration_time = 60 * 60 * 24 
+    redis_client.set(name=hash, value=url, ex=expiration_time)
 
 def get_url_by_hash(url_hash: str) -> Union[str, None]:
     return redis_client.get(url_hash)
