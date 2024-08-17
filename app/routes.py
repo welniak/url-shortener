@@ -34,7 +34,7 @@ def open_url_for_hash(url_hash):
     if (url is None):
         return _error_response("URL not found", 404)
     else:
-        return redirect(url)
+        return redirect(location=url, code=302)
     
 def _error_response(error_message: str, error_code: int):
     response_body = {
